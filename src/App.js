@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 import axios from 'axios';
 
-import Login from './Login';
+import signin from './signin';
 import Dashboard from './Dashboard';
 import Home from './Home';
 
@@ -38,13 +38,13 @@ function App() {
         <div>
           <div className="header">
             <NavLink exact activeClassName="active" to="/">Home</NavLink>
-            <NavLink activeClassName="active" to="/login">Login</NavLink><small>(Access without token only)</small>
+            <NavLink activeClassName="active" to="/signin">Signin</NavLink><small>(Access without token only)</small>
             <NavLink activeClassName="active" to="/dashboard">Dashboard</NavLink><small>(Access with token only)</small>
           </div>
           <div className="content">
             <Switch>
               <Route exact path="/" component={Home} />
-              <PublicRoute path="/login" component={Login} />
+              <PublicRoute path="/signin" component={signin} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
             </Switch>
           </div>
