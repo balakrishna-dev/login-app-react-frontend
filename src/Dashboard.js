@@ -1,6 +1,6 @@
 import React from 'react';
 import { getUser, removeUserSession } from './Utils/Common';
-import FormDialog from './material/FormDialog';
+import FormDialog from './FormDialog';
 
 
 function Dashboard(props) {
