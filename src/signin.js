@@ -15,8 +15,8 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import ResponsiveDialog from './material/ResponsiveDialog';
-import Confirmation from './material/Confirmation';
+import ResponsiveDialog from './ResponsiveDialog';
+import Confirmation from './Confirmation';
 
 
 function Copyright() {
