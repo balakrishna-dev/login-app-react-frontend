@@ -14,14 +14,26 @@ export default function FormDialog() {
   const username = useFormInput('');
   const password = useFormInput('');
    
-  
+  const [uname, setUname] =React.useState('');
+  const [pword, setPword] =React.useState('');
+
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
-
+    setUname(username);
+    setPword(password);
     setOpen(false);
+    alert(uname);
+    console.log(pword);
+    return (
+     <div>
+       <h1>
+
+       </h1>
+     </div>
+    )
   }
 
 
@@ -57,7 +69,7 @@ export default function FormDialog() {
             name="password"
             {...password}
             label="Profession"
-            type="password"
+            type="text"
             id="password"
             autoComplete="current-password"
           />
