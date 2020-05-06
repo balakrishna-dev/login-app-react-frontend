@@ -1,6 +1,6 @@
 import React from 'react';
 import { getUser, removeUserSession } from './Utils/Common';
-import FormDialog, { handleClose } from './material/FormDialog';
+import * as form from './material/FormDialog';
 
 function Dashboard(props) {
 	const user = getUser();
@@ -12,12 +12,15 @@ function Dashboard(props) {
 
 	return (
 		<div>
-			Welcome {user.name}!<br />
-			<br />
-			<FormDialog />
+			<h1> Welcome {user.name}!</h1>
 			<br />
 			<br />
-			<handleClose {...props.uname} />
+
+			<form.FormDialog />
+			<br />
+			<p />
+			<br />
+
 			<input type="button" onClick={handleLogout} value="Logout" />
 		</div>
 	);
