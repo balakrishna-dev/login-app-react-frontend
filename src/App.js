@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, NavLink, Link } from 'react-router-dom';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -13,6 +13,8 @@ import Home from './Home';
 import PrivateRoute from './Utils/PrivateRoute';
 import PublicRoute from './Utils/PublicRoute';
 import { getToken, removeUserSession, setUserSession } from './Utils/Common';
+import posts from './Redux/posts';
+import postForm from './Redux/postform';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -84,6 +86,16 @@ function App() {
 												<small> (Access with token only)</small>
 											</NavLink>
 										</th>
+										<th>
+											<Link to={'/posts'} activeClassName="active" style={content}>
+												<b>Posts</b>
+											</Link>
+										</th>
+										<th>
+											<Link to={'/addPost'} activeClassName="active" style={content}>
+												<b>Add Post</b>
+											</Link>
+										</th>
 									</tr>
 								</table>
 							</Typography>
@@ -94,6 +106,8 @@ function App() {
 					<Route exact path="/" component={Home} />
 					<PublicRoute path="/signin" component={signin} />
 					<PrivateRoute path="/dashboard" component={Dashboard} />
+					<PrivateRoute exact path="/posts" component={posts} />
+					<PrivateRoute exact path="/addPost" component={postForm} />
 				</Switch>
 			</BrowserRouter>
 		</div>
