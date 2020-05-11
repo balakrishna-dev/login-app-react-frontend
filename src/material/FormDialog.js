@@ -33,11 +33,12 @@ export function FormDialog() {
 				password: password
 			}
 		});
-		fav = store.getState();
-		console.log(fav[0].uname.value);
-		details = fav[0];
-		setUname(details.uname.value);
-		setPword(details.pword.value);
+		fav = store.getState().posts;
+
+		details = fav.form;
+		setUname(details.username.value);
+		setPword(details.password.value);
+		console.log(details);
 	};
 
 	return (

@@ -9,3 +9,26 @@ export const fetchPosts = () => (dispatch) => {
 		})
 	);
 };
+
+export const addPost = (postData) => (dispatch) => {
+	console.log('action called');
+	fetch('https://jsonplaceholder.typicode.com/posts', {
+		method: 'post',
+		headers: { 'content-type': 'application/json' },
+		body: JSON.stringify(postData)
+	})
+		.then((res) => res.json())
+		.then((post) =>
+			dispatch({
+				type: actons.NEW_POST,
+				payload: post
+			})
+		);
+};
+
+export const addFavorites = (data) => {
+	return {
+		type: actons.favAdd,
+		payload: data
+	};
+};

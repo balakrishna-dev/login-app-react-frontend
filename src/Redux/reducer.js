@@ -1,5 +1,4 @@
 import * as actions from './actiontypes';
-import { username, password } from '../material/FormDialog';
 
 const initialState = {
 	items: [],
@@ -10,23 +9,28 @@ const initialState = {
 	}
 };
 
-export default function reducer(state = initialState, action) {
+export default function rootReducer(state = initialState, action) {
 	switch (action.type) {
 		case actions.favAdd:
-			return [
+			console.log('ANKSakd');
+			return {
 				...state,
-				{
-					uname: username,
-					pword: password
+				posts: {
+					form: action.payload
 				}
-			];
+			};
 		case actions.favRemoved:
-			return [];
+			return {};
 		case actions.FETCH_POST:
 			console.log('rducer');
 			return {
 				...state,
 				items: action.payload
+			};
+		case actions.NEW_POST:
+			return {
+				...state,
+				item: action.payload
 			};
 		default:
 			return state;
