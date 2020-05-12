@@ -15,9 +15,8 @@ export default function rootReducer(state = initialState, action) {
 			console.log('ANKSakd');
 			return {
 				...state,
-				posts: {
-					form: action.payload
-				}
+
+				form: action.payload
 			};
 		case actions.favRemoved:
 			return {};

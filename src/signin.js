@@ -17,6 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import ResponsiveDialog from './material/ResponsiveDialog';
 import Confirmation from './material/Confirmation';
+import Loading from 'react-loading-components';
 
 function Copyright() {
 	return (
@@ -57,12 +58,13 @@ export default function SignIn(props) {
 	const [ loading, setLoading ] = useState(false);
 	const username = useFormInput('');
 	const password = useFormInput('');
+
 	// eslint-disable-next-line
 	const [ error, setError ] = useState(null);
 
 	const handleLogin = () => {
-		setError(null);
 		setLoading(true);
+		setError(null);
 		axios
 			.post('http://localhost:4000/users/signin', { username: username.value, password: password.value })
 			.then((response) => {
@@ -72,12 +74,12 @@ export default function SignIn(props) {
 			})
 			.catch((error) => {
 				setLoading(false);
-				if (error.response.status === 401) {
+				if (error.response.status === 500) {
 					setError(error.response.data.message);
-					alert(error);
+					alert('username or password is invalid');
 				} else setError('Something went wrong. Please try again later.');
 			});
-		if (username.value === '' || password.value === '') alert('Username and password are required');
+		if (username.value === '' || password.value === '') return alert('Username and password are required');
 	};
 
 	return (
@@ -120,17 +122,16 @@ export default function SignIn(props) {
 						variant="contained"
 						color="primary"
 						className={classes.submit}
-						value={loading ? 'Loading...' : 'Login'}
+						value={loading ? 'loading' : 'login'}
 						onClick={handleLogin}
 						disabled={loading}
 					>
-						Sign In
+						{loading ? <Loading type="circles" width={30} height={30} fill="#f44242" /> : 'Sign In'}
 					</Button>
 					<Grid container>
 						<Grid item xs>
 							<Confirmation />
 						</Grid>
-
 						<Grid item>
 							<ResponsiveDialog />
 						</Grid>

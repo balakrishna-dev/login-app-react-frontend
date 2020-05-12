@@ -29,8 +29,8 @@ export function FormDialog() {
 		store.dispatch({
 			type: 'favAdd',
 			payload: {
-				username: username,
-				password: password
+				username,
+				password
 			}
 		});
 		fav = store.getState().posts;
