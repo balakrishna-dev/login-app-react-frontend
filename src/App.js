@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route, NavLink, Link } from 'react-router-dom';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,15 +6,16 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
-import signin from './signin';
-import Dashboard from './Dashboard';
-import Home from './Home';
-
 import PrivateRoute from './Utils/PrivateRoute';
 import PublicRoute from './Utils/PublicRoute';
 import { getToken, removeUserSession, setUserSession } from './Utils/Common';
-import posts from './Redux/posts';
-import postForm from './Redux/postform';
+import Loading from 'react-loading-components';
+
+const posts = lazy(() => import('./Redux/posts'));
+const Dashboard = lazy(() => import('./Dashboard'));
+const signin = lazy(() => import('./signin'));
+const Home = lazy(() => import('./Home'));
+const postForm = lazy(() => import('./Redux/postform'));
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -63,52 +64,58 @@ function App() {
 	return (
 		<div className={classes.root}>
 			<BrowserRouter>
-				<AppBar position="static">
-					<Toolbar>
-						<div className={classes.root}>
-							<Typography variant="h6" className={classes.title}>
-								<table>
-									<tr>
-										<th>
-											<NavLink exact activeClassName="active" to="/" style={content}>
-												<b>Home</b>
-											</NavLink>
-										</th>
-										<th>
-											<NavLink activeClassName="active" to="/signin" style={content}>
-												<b>Signin</b>
-												<small> (Access without token only)</small>
-											</NavLink>
-										</th>
-										<th>
-											<NavLink activeClassName="active" to="/dashboard" style={content}>
-												<b>Dashboard</b>
-												<small> (Access with token only)</small>
-											</NavLink>
-										</th>
-										<th>
-											<Link to={'/posts'} activeClassName="active" style={content}>
-												<b>Posts</b>
-											</Link>
-										</th>
-										<th>
-											<Link to={'/addPost'} activeClassName="active" style={content}>
-												<b>Add Post</b>
-											</Link>
-										</th>
-									</tr>
-								</table>
-							</Typography>
+				<Suspense
+					fallback={
+						<div style={{ marginLeft: 200 }}>
+							Loading Please Wait<Loading type="three_dots" width={50} height={10} fill="blue" />
 						</div>
-					</Toolbar>
-				</AppBar>
-				<Switch>
-					<Route exact path="/" component={Home} />
-					<PublicRoute path="/signin" component={signin} />
-					<PrivateRoute path="/dashboard" component={Dashboard} />
-					<PrivateRoute exact path="/posts" component={posts} />
-					<PrivateRoute exact path="/addPost" component={postForm} />
-				</Switch>
+					}
+				>
+					<AppBar position="static">
+						<Toolbar>
+							<div className={classes.root}>
+								<Typography variant="h6" className={classes.title}>
+									<table>
+										<tr>
+											<th>
+												<NavLink exact activeClassName="active" to="/" style={content}>
+													<b>Home</b>
+												</NavLink>
+											</th>
+											<th>
+												<NavLink activeClassName="active" to="/signin" style={content}>
+													<b>Signin</b>
+												</NavLink>
+											</th>
+											<th>
+												<NavLink activeClassName="active" to="/dashboard" style={content}>
+													<b>Dashboard</b>
+												</NavLink>
+											</th>
+											<th>
+												<Link to={'/posts'} activeClassName="active" style={content}>
+													<b>Posts</b>
+												</Link>
+											</th>
+											<th>
+												<Link to={'/addPost'} activeClassName="active" style={content}>
+													<b>Add Post</b>
+												</Link>
+											</th>
+										</tr>
+									</table>
+								</Typography>
+							</div>
+						</Toolbar>
+					</AppBar>
+					<Switch>
+						<Route exact path="/" component={Home} />
+						<PublicRoute path="/signin" component={signin} />
+						<PrivateRoute path="/dashboard" component={Dashboard} />
+						<PrivateRoute exact path="/posts" component={posts} />
+						<PrivateRoute exact path="/addPost" component={postForm} />
+					</Switch>
+				</Suspense>
 			</BrowserRouter>
 		</div>
 	);

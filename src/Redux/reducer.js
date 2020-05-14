@@ -12,7 +12,6 @@ const initialState = {
 export default function rootReducer(state = initialState, action) {
 	switch (action.type) {
 		case actions.favAdd:
-			console.log('ANKSakd');
 			return {
 				...state,
 
@@ -21,7 +20,6 @@ export default function rootReducer(state = initialState, action) {
 		case actions.favRemoved:
 			return {};
 		case actions.FETCH_POST:
-			console.log('rducer');
 			return {
 				...state,
 				items: action.payload

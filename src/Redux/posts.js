@@ -4,9 +4,11 @@ import { fetchPosts } from './postActions';
 import propTypes from 'prop-types';
 
 class posts extends Component {
-	componentWillMount() {
+	constructor(props) {
+		super(props);
 		this.props.fetchPosts();
 	}
+	componendDidMount() {}
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.newPost) this.props.posts.unshift(nextProps.newPost);

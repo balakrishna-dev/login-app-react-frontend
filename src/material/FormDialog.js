@@ -6,6 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { makeStyles } from '@material-ui/core/styles';
 import store from '../Redux/store';
 
 export var username;
@@ -16,6 +17,15 @@ export function FormDialog() {
 	const [ open, setOpen ] = React.useState(false);
 	const [ uname, setUname ] = React.useState('');
 	const [ pword, setPword ] = React.useState('');
+
+	const useStyles = makeStyles((theme) => ({
+		margin: {
+			margin: 100
+		},
+		extendedIcon: {
+			marginRight: 100
+		}
+	}));
 
 	username = useFormInput('');
 	password = useFormInput('');
@@ -43,8 +53,8 @@ export function FormDialog() {
 
 	return (
 		<div>
-			<Button variant="outlined" color="primary" onClick={handleClickOpen}>
-				More About You
+			<Button variant="outlined" color="primary" onClick={handleClickOpen} style={{ marginLeft: 40 }}>
+				Add Your Favourites
 			</Button>
 			<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
 				<DialogTitle id="form-dialog-title">More ABout You</DialogTitle>
@@ -81,10 +91,33 @@ export function FormDialog() {
 					</Button>
 				</DialogActions>
 			</Dialog>
+			{uname !== '' ? (
+				<div>
+					<Button
+						variant="contained"
+						size="medium"
+						color="secondary"
+						className={useStyles.margin}
+						value=""
+						style={{ marginLeft: 50, marginTop: 30 }}
+					>
+						{uname}
+					</Button>
 
-			<h3>{uname}</h3>
-			<br />
-			<h3>{pword}</h3>
+					<Button
+						variant="contained"
+						size="medium"
+						color="primary"
+						className={useStyles.margin}
+						value=""
+						style={{ marginLeft: 50, marginTop: 30 }}
+					>
+						{pword}
+					</Button>
+				</div>
+			) : (
+				''
+			)}
 		</div>
 	);
 }
