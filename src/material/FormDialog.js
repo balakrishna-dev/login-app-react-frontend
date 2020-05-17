@@ -7,17 +7,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
-import store from '../Redux/store';
+import { connect } from 'react-redux';
+import addFavorites from '../Redux/favActions';
 
-export var username;
-export var password;
-export var fav, details;
-
-export function FormDialog() {
+var fav;
+function FormDialog({ favorites, addFavorites }) {
 	const [ open, setOpen ] = React.useState(false);
-	const [ uname, setUname ] = React.useState('');
-	const [ pword, setPword ] = React.useState('');
-
 	const useStyles = makeStyles((theme) => ({
 		margin: {
 			margin: 100
@@ -27,8 +22,8 @@ export function FormDialog() {
 		}
 	}));
 
-	username = useFormInput('');
-	password = useFormInput('');
+	const username = useFormInput('');
+	const password = useFormInput('');
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -36,19 +31,11 @@ export function FormDialog() {
 
 	const handleClose = () => {
 		setOpen(false);
-		store.dispatch({
-			type: 'favAdd',
-			payload: {
-				username,
-				password
-			}
-		});
-		fav = store.getState().posts;
-
-		details = fav.form;
-		setUname(details.username.value);
-		setPword(details.password.value);
-		console.log(details);
+		fav = {
+			book: username,
+			profession: password
+		};
+		addFavorites(fav);
 	};
 
 	return (
@@ -91,7 +78,7 @@ export function FormDialog() {
 					</Button>
 				</DialogActions>
 			</Dialog>
-			{uname !== '' ? (
+			{username !== '' ? (
 				<div>
 					<Button
 						variant="contained"
@@ -101,7 +88,7 @@ export function FormDialog() {
 						value=""
 						style={{ marginLeft: 50, marginTop: 30 }}
 					>
-						{uname}
+						{favorites.book.value}
 					</Button>
 
 					<Button
@@ -112,7 +99,7 @@ export function FormDialog() {
 						value=""
 						style={{ marginLeft: 50, marginTop: 30 }}
 					>
-						{pword}
+						{favorites.profession.value}
 					</Button>
 				</div>
 			) : (
@@ -126,10 +113,23 @@ const useFormInput = (initialValue) => {
 
 	const handleChange = (e) => {
 		setValue(e.target.value);
-		console.log(e.target.value);
 	};
 	return {
 		value,
 		onChange: handleChange
 	};
 };
+
+const mapStateToProps = (state) => {
+	return {
+		favorites: state.favorite.favorites
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		addFavorites: () => dispatch(addFavorites(fav))
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormDialog);

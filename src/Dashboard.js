@@ -1,8 +1,9 @@
 import React from 'react';
 import { getUser, removeUserSession } from './Utils/Common';
-import * as form from './material/FormDialog';
+import FormDialog from './material/FormDialog';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import ErrorBoundary from './ErrorBoundary';
 
 function Dashboard(props) {
 	const user = getUser();
@@ -25,8 +26,9 @@ function Dashboard(props) {
 			<h1> Welcome {user.name}!</h1>
 			<br />
 			<br />
-
-			<form.FormDialog />
+			<ErrorBoundary>
+				<FormDialog />
+			</ErrorBoundary>
 			<br />
 			<p />
 			<br />
@@ -41,9 +43,6 @@ function Dashboard(props) {
 			>
 				Logout
 			</Button>
-			{/* <Button fullWidth variant="contained" color="primary" className={useStyles.submit} type="submit" /> */}
-
-			{/* <input type="button" onClick={} value="Logout" /> */}
 		</div>
 	);
 }

@@ -25,10 +25,3 @@ export const addPost = (postData) => (dispatch) => {
 			})
 		);
 };
-
-export const addFavorites = (data) => {
-	return {
-		type: actons.favAdd,
-		payload: data
-	};
-};

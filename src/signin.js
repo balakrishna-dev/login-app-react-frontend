@@ -94,7 +94,7 @@ export default function SignIn(props) {
 					<TextField
 						variant="outlined"
 						margin="normal"
-						required
+						required="required"
 						fullWidth
 						id="email"
 						{...username}
@@ -106,7 +106,7 @@ export default function SignIn(props) {
 					<TextField
 						variant="outlined"
 						margin="normal"
-						required
+						required="required"
 						fullWidth
 						name="password"
 						{...password}

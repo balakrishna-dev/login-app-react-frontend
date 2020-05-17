@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import rootReducer from './reducer';
+import { postReducer, favReducer } from './reducers';
 
-export default combineReducers({
-	posts: rootReducer
+const rootReducer = combineReducers({
+	posts: postReducer,
+	favorite: favReducer
 });
+export default rootReducer;

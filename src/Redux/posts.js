@@ -8,7 +8,6 @@ class posts extends Component {
 		super(props);
 		this.props.fetchPosts();
 	}
-	componendDidMount() {}
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.newPost) this.props.posts.unshift(nextProps.newPost);
