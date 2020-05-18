@@ -6,22 +6,15 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import addFavorites from '../Redux/favActions';
+import * as Styles from '../Style';
 
 var fav;
 function FormDialog({ favorites, addFavorites }) {
 	const [ open, setOpen ] = React.useState(false);
-	const useStyles = makeStyles((theme) => ({
-		margin: {
-			margin: 100
-		},
-		extendedIcon: {
-			marginRight: 100
-		}
-	}));
 
+	const { FormDialogUseStyles } = Styles;
 	const username = useFormInput('');
 	const password = useFormInput('');
 
@@ -84,7 +77,7 @@ function FormDialog({ favorites, addFavorites }) {
 						variant="contained"
 						size="medium"
 						color="secondary"
-						className={useStyles.margin}
+						className={FormDialogUseStyles.margin}
 						value=""
 						style={{ marginLeft: 50, marginTop: 30 }}
 					>
@@ -95,7 +88,7 @@ function FormDialog({ favorites, addFavorites }) {
 						variant="contained"
 						size="medium"
 						color="primary"
-						className={useStyles.margin}
+						className={FormDialogUseStyles.margin}
 						value=""
 						style={{ marginLeft: 50, marginTop: 30 }}
 					>
