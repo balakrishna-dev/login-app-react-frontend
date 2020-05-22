@@ -1,7 +1,9 @@
 # login-app-reactjs
 Example: How to create login form in ReactJS using secure REST API
 
-
+# user credentials
+username : bala@123
+password : 12345
 
 ## Setup
 Follow below steps to run project
