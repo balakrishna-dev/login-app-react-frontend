@@ -1,4 +1,4 @@
-import * as actons from './actiontypes';
+import * as actons from '../actiontypes';
 
 export const fetchPosts = () => (dispatch) => {
 	console.log('fetching');

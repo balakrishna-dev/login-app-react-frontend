@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import ErrorBoundary from './ErrorBoundary';
 import Loading from 'react-loading-components';
 
+import Example from './Redux/Posts/Grid';
+
 function Dashboard(props) {
 	const user = getUser();
 	const FormDialog = lazy(() => import('./material/FormDialog'));
@@ -52,6 +54,7 @@ function Dashboard(props) {
 			>
 				Logout
 			</Button>
+			<Example />
 		</div>
 	);
 }

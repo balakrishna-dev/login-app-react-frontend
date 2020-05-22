@@ -13,11 +13,11 @@ import Loading from 'react-loading-components';
 import ErrorBoundary from './ErrorBoundary';
 import * as Styles from './Style';
 
-const posts = lazy(() => import('./Redux/posts'));
+const posts = lazy(() => import('./Redux/Posts/posts'));
 const Dashboard = lazy(() => import('./Dashboard'));
 const signin = lazy(() => import('./signin'));
 const Home = lazy(() => import('./Home'));
-const postForm = lazy(() => import('./Redux/postform'));
+const postForm = lazy(() => import('./Redux/Posts/postform'));
 
 const fallback = () => (
 	<div style={{ marginLeft: 200 }}>
@@ -63,37 +63,48 @@ function App() {
 								<div className={classes.root}>
 									<Typography variant="h6" className={classes.title}>
 										<table>
-											<tr>
-												<th>
-													<NavLink exact activeClassName="active" to="/" style={Appcontent}>
-														<b>Home</b>
-													</NavLink>
-												</th>
-												<th>
-													<NavLink activeClassName="active" to="/signin" style={Appcontent}>
-														<b>Signin</b>
-													</NavLink>
-												</th>
-												<th>
-													<NavLink
-														activeClassName="active"
-														to="/dashboard"
-														style={Appcontent}
-													>
-														<b>Dashboard</b>
-													</NavLink>
-												</th>
-												<th>
-													<Link to={'/posts'} activeClassName="active" style={Appcontent}>
-														<b>Posts</b>
-													</Link>
-												</th>
-												<th>
-													<Link to={'/addPost'} activeClassName="active" style={Appcontent}>
-														<b>Add Post</b>
-													</Link>
-												</th>
-											</tr>
+											<thead>
+												<tr>
+													<th>
+														<NavLink
+															exact
+															activeClassName="active"
+															to="/"
+															style={Appcontent}
+														>
+															<b>Home</b>
+														</NavLink>
+													</th>
+													<th>
+														<NavLink
+															activeClassName="active"
+															to="/signin"
+															style={Appcontent}
+														>
+															<b>Signin</b>
+														</NavLink>
+													</th>
+													<th>
+														<NavLink
+															activeClassName="active"
+															to="/dashboard"
+															style={Appcontent}
+														>
+															<b>Dashboard</b>
+														</NavLink>
+													</th>
+													<th>
+														<Link to={'/posts'} style={Appcontent}>
+															<b>Posts</b>
+														</Link>
+													</th>
+													<th>
+														<Link to={'/addPost'} style={Appcontent}>
+															<b>Add Post</b>
+														</Link>
+													</th>
+												</tr>
+											</thead>
 										</table>
 									</Typography>
 								</div>
