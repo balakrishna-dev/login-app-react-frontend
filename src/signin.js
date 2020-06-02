@@ -59,7 +59,6 @@ export default function SignIn(props) {
 	const username = useFormInput('');
 	const password = useFormInput('');
 
-	// eslint-disable-next-line
 	const [ error, setError ] = useState(null);
 
 	const handleLogin = () => {
@@ -72,11 +71,12 @@ export default function SignIn(props) {
 				setUserSession(response.data.token, response.data.user);
 				props.history.push('/dashboard');
 			})
-			.catch((error) => {
+			.catch((err) => {
 				setLoading(false);
-				if (error.response.status === 500) {
-					setError(error.response.data.message);
+				if (err.response.status === 401) {
+					setError(err.response.data.message);
 					alert('username or password is invalid');
+					console.log(error);
 				} else setError('Something went wrong. Please try again later.');
 			});
 		if (username.value === '' || password.value === '') return alert('Username and password are required');

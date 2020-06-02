@@ -8,11 +8,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect } from 'react-redux';
 import addFavorites from '../Redux/favActions';
-import * as Styles from '../Style';
+import * as Styles from '../AllStyles';
 
 var fav;
 function FormDialog({ favorites, addFavorites }) {
-	const [ open, setOpen ] = React.useState(false);
+	const [ open, setOpen ] = useState(false);
 
 	const { FormDialogUseStyles } = Styles;
 	const username = useFormInput('');

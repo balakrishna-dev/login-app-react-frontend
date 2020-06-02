@@ -1,46 +1,36 @@
-import React, { useState, useRef, useEffect } from 'react';
-import FormChild from './FormChild';
+import React, { useState } from 'react';
+import withFormData from './FormChild';
 
-function FormParent() {
+function FormParent({ results, loading, error }) {
 	const [ done, setDone ] = useState(false);
-	const ref = useRef(0);
-	const firstname = useFormInput('');
-	const lastname = useFormInput('');
-	useEffect(() => {
-		ref.current.focus();
-		return () => {};
-	}, []);
-	const handleClose = () => {
+	const handleSubmit = () => {
 		setDone(true);
 	};
+	if (!done) {
+		return (
+			<div>
+				<button type="submit" onClick={handleSubmit}>
+					Fetch Data
+				</button>
+			</div>
+		);
+	}
+	if (loading || error) {
+		return loading ? 'Loading...' : error.message;
+	}
 	return (
 		<div>
-			{done ? (
-				<p>Form Submitted successfully!</p>
-			) : (
-				<div>
-					<br />
-					<h2> Form</h2>
-					<br />
-					<FormChild name={firstname} ref={ref} placeholder="First Name" />
-					<FormChild name={lastname} placeholder="Last Name" />
-					<button value="submit" type="submit" onClick={handleClose}>
-						Submit
-					</button>
-				</div>
-			)}
+			<ul>
+				{results.map((result) => (
+					<li key={result.id}>
+						{result.name} {result.mail}
+					</li>
+				))}
+			</ul>
 		</div>
 	);
 }
-const useFormInput = (initialValue) => {
-	const [ value, setValue ] = useState(initialValue);
 
-	const handleChange = (e) => {
-		setValue(e.target.value);
-	};
-	return {
-		value,
-		onChange: handleChange
-	};
-};
-export default FormParent;
+export default withFormData(FormParent)({
+	url: 'https://api.github.com/users/royderks/repos'
+});

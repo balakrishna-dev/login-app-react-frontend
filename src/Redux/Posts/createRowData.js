@@ -1,5 +1,4 @@
 import faker from 'faker';
-import { Editors } from 'react-data-grid-addons';
 
 function createFakeRow(index) {
 	return {
@@ -21,13 +20,15 @@ export function createRowData(count) {
 
 const defaultColumnProperties = {
 	resizable: true,
-	width: 120
+	width: 120,
+	sortable: true
 };
 
 export const columns = [
 	{
 		key: 'id',
-		name: 'ID'
+		name: 'ID',
+		sortDescendingFirst: true
 	},
 	{
 		key: 'title',
@@ -35,15 +36,32 @@ export const columns = [
 	},
 	{
 		key: 'firstName',
-		name: 'First Name'
+		name: 'First Name',
+		events: {
+			onClick: function(ev, args) {
+				console.log(
+					'The user entered edit mode on title column with rowIdx: ' + args.rowIdx + ' & rowId: ' + args.rowId
+				);
+			}
+		}
 	},
 	{
 		key: 'lastName',
-		name: 'Last Name'
+		name: 'Last Name',
+		events: {
+			onMouseOver: function(ev) {
+				console.log(`Mouse over Last Name Column`);
+			}
+		}
 	},
 	{
 		key: 'email',
-		name: 'Email'
+		name: 'Email',
+		events: {
+			onFocus: function(ev) {
+				console.log(`Context Menu is opened`);
+			}
+		}
 	},
 	{
 		key: 'street',

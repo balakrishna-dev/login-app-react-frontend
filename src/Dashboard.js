@@ -2,9 +2,9 @@ import React, { Suspense, lazy } from 'react';
 import { getUser, removeUserSession } from './Utils/Common';
 
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
 import ErrorBoundary from './ErrorBoundary';
 import Loading from 'react-loading-components';
+import * as Styles from './AllStyles';
 
 import Example from './Redux/Posts/Grid';
 
@@ -16,14 +16,6 @@ function Dashboard(props) {
 			Loading Please Wait<Loading type="three_dots" width={50} height={10} fill="blue" />
 		</div>
 	);
-	const useStyles = makeStyles((theme) => ({
-		margin: {
-			margin: 100
-		},
-		extendedIcon: {
-			marginRight: 100
-		}
-	}));
 
 	const handleLogout = () => {
 		removeUserSession();
@@ -47,7 +39,7 @@ function Dashboard(props) {
 				variant="contained"
 				size="medium"
 				color="primary"
-				className={useStyles.margin}
+				className={Styles.DashboarduseStyles.margin}
 				value={'Logout'}
 				onClick={handleLogout}
 				style={{ marginLeft: 50 }}

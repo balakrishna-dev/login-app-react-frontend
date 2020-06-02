@@ -1,17 +1,17 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
-import { BrowserRouter, Switch, Route, NavLink, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-
 import PrivateRoute from './Utils/PrivateRoute';
 import PublicRoute from './Utils/PublicRoute';
 import { getToken, removeUserSession, setUserSession } from './Utils/Common';
 import Loading from 'react-loading-components';
 import ErrorBoundary from './ErrorBoundary';
-import * as Styles from './Style';
+import * as Styles from './AllStyles';
+import NotFound from './NotFound';
 
 const posts = lazy(() => import('./Redux/Posts/posts'));
 const Dashboard = lazy(() => import('./Dashboard'));
@@ -94,14 +94,18 @@ function App() {
 														</NavLink>
 													</th>
 													<th>
-														<Link to={'/posts'} style={Appcontent}>
+														<NavLink
+															to={'/posts'}
+															activeClassName="active"
+															style={Appcontent}
+														>
 															<b>Posts</b>
-														</Link>
+														</NavLink>
 													</th>
 													<th>
-														<Link to={'/addPost'} style={Appcontent}>
+														<NavLink to={'/addPost'} style={Appcontent}>
 															<b>Add Post</b>
-														</Link>
+														</NavLink>
 													</th>
 												</tr>
 											</thead>
@@ -112,10 +116,11 @@ function App() {
 						</AppBar>
 						<Switch>
 							<Route exact path="/" component={Home} />
-							<PublicRoute path="/signin" component={signin} />
-							<PrivateRoute path="/dashboard" component={Dashboard} />
+							<PublicRoute exact path="/signin" component={signin} />
+							<PrivateRoute exact path="/dashboard" component={Dashboard} />
 							<PrivateRoute exact path="/posts" component={posts} />
 							<PrivateRoute exact path="/addPost" component={postForm} />
+							<PublicRoute path="/*" component={NotFound} />
 						</Switch>
 					</Suspense>
 				</ErrorBoundary>
