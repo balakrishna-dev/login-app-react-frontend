@@ -1,9 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-//import reducer from './reducer';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 import rootReducer from './combineReducer';
-
-const middleware = [ thunk ];
+import RootSaga from '../Sagas/RootSaga';
 
 function saveToLocalStorage(state) {
 	try {
@@ -27,15 +25,20 @@ function getStateFromLocalStorage() {
 
 const persistedState = getStateFromLocalStorage();
 
-const store = createStore(
-	rootReducer,
-	persistedState,
-	compose(
-		applyMiddleware(...middleware),
-		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-	)
-);
+const configureStore = () => {
+	const sagaMiddleware = createSagaMiddleware();
+	const store = createStore(
+		rootReducer,
+		persistedState,
+		compose(
+			applyMiddleware(sagaMiddleware),
+			window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+		)
+	);
 
-store.subscribe(() => saveToLocalStorage(store.getState()));
+	sagaMiddleware.run(RootSaga);
+	store.subscribe(() => saveToLocalStorage(store.getState()));
+	return store;
+};
 
-export default store;
+export default configureStore;

@@ -13,12 +13,15 @@ const withFormData = (WrappedComponent) => (props) => {
 		}
 
 		componentDidMount() {
-			axios.get(props.url).then((res) => this.setState({ results: res.data, loading: false })).catch((error) => {
-				this.setState({
-					loading: false,
-					error: error.message
+			axios
+				.get(props.url)
+				.then((res) => this.setState({ ...this.state, results: res.data, loading: false }))
+				.catch((error) => {
+					this.setState({
+						loading: false,
+						error: error.message
+					});
 				});
-			});
 		}
 
 		render() {

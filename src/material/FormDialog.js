@@ -29,6 +29,7 @@ function FormDialog({ favorites, addFavorites }) {
 			profession: password
 		};
 		addFavorites(fav);
+		console.log('hitt');
 	};
 
 	return (

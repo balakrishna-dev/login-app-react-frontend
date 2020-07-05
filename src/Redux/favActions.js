@@ -1,9 +1,9 @@
-import * as actons from './actiontypes';
+import actiontypes from './actiontypes';
 
 const addFavorites = (data) => (dispatch) => {
 	console.log('favaction called', data);
 	dispatch({
-		type: actons.FAV_ADD,
+		type: actiontypes.FAV_ADD,
 		payload: data
 	});
 };

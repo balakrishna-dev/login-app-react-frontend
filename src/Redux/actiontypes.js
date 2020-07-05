@@ -1,4 +1,10 @@
-export const FAV_ADD = 'FAV_ADD';
-export const FAV_REMOVE = 'FAV_REMOVE';
-export const FETCH_POST = 'FETCH_POST';
-export const NEW_POST = 'NEW_POST';
+const actionTypes = {
+	FAV_ADD: 'FAV_ADD',
+	FAV_REMOVE: 'FAV_REMOVE',
+	FETCH_POST: 'FETCH_POST',
+	FETCH_POST_SUCCESS: 'FETCH_POST_SUCCESS',
+	FETCH_POST_ERROR: 'FETCH_POST_ERROR',
+	NEW_POST: 'NEW_POST',
+	NEW_POST_SUCCESS: 'NEW_POST_SUCCESS'
+};
+export default actionTypes;

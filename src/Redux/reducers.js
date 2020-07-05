@@ -1,19 +1,34 @@
-import * as actions from './actiontypes';
+import actionTypes from './actiontypes';
 
-const initialState = {
+const PostInitialState = {
 	items: [],
 	item: {},
-	favorites: []
+	loading: true,
+	error: ''
 };
 
-export function postReducer(state = initialState, action) {
+export function postReducer(state = PostInitialState, action) {
 	switch (action.type) {
-		case actions.FETCH_POST:
+		case actionTypes.FETCH_POST:
 			return {
 				...state,
-				items: action.payload
+				loading: true,
+				error: ''
 			};
-		case actions.NEW_POST:
+		case actionTypes.FETCH_POST_ERROR:
+			return {
+				...state,
+				loading: false,
+				error: action.payload
+			};
+		case actionTypes.FETCH_POST_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				items: action.payload,
+				error: ''
+			};
+		case actionTypes.NEW_POST:
 			return {
 				...state,
 				item: action.payload
@@ -23,14 +38,17 @@ export function postReducer(state = initialState, action) {
 	}
 }
 
-export function favReducer(state = initialState, action) {
+const FavoriteInitialState = {
+	favorites: []
+};
+export function favReducer(state = FavoriteInitialState, action) {
 	switch (action.type) {
-		case actions.FAV_ADD:
+		case actionTypes.FAV_ADD:
 			return {
 				...state,
 				favorites: action.payload
 			};
-		case actions.FAV_REMOVE:
+		case actionTypes.FAV_REMOVE:
 			return { ...state };
 		default:
 			return state;
